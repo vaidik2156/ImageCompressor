@@ -1,0 +1,352 @@
+/* Custom styles for the body */
+body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Gradient background for depth */
+    font-family: 'Poppins', sans-serif; /* Modern, clean font (ensure you include this font via Google Fonts or similar) */
+    margin: 0;
+    padding: 0;
+    color: #333; /* Dark gray text for readability */
+    line-height: 1.6; /* Improved readability */
+}
+
+/* Hero Section (Updated with animation and gradient) */
+.hero-section {
+    background: linear-gradient(45deg, #007bff, #6c757d); /* Gradient blue to gray */
+    color: #ffffff; /* White text */
+    padding: 5rem 0; /* More padding for a spacious feel */
+    text-align: center; /* Center-align content */
+    animation: fadeIn 1.5s ease-in-out; /* Subtle fade-in animation */
+}
+
+.hero-section h1 {
+    font-size: 3rem; /* Larger and bolder heading */
+    font-weight: 700; /* Bold text */
+    margin-bottom: 1.5rem; /* More space below heading */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+.hero-section p {
+    font-size: 1.5rem; /* Larger, more readable text */
+    opacity: 0.9; /* Slight transparency for contrast */
+}
+
+/* Upload Section (Updated with shadow and hover effects) */
+.upload-section {
+    background: #ffffff; /* White background */
+    padding: 3rem; /* More padding for a spacious design */
+    border-radius: 15px; /* Larger rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow for depth */
+    margin: 2rem auto; /* Center the section with margin */
+    max-width: 800px; /* Limit width for responsiveness */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.upload-section:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
+}
+
+.upload-section h3 {
+    font-size: 2rem; /* Larger heading for emphasis */
+    color: #007bff; /* Blue heading for branding */
+    margin-bottom: 2rem; /* More space below heading */
+    font-weight: 600; /* Semi-bold for clarity */
+}
+
+/* Custom button styles (Updated with gradients and animations) */
+.btn-primary {
+    background: linear-gradient(45deg, #007bff, #0056b3); /* Gradient blue */
+    border: none; /* Remove border */
+    padding: 0.75rem 2rem; /* Larger padding for prominence */
+    border-radius: 8px; /* More rounded corners */
+    color: #ffffff; /* White text */
+    font-weight: 500; /* Semi-bold text */
+    text-transform: uppercase; /* Uppercase for emphasis */
+    letter-spacing: 1px; /* Slight letter spacing for modern look */
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Subtle shadow */
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #0056b3, #003d7a); /* Darker gradient on hover */
+    transform: scale(1.05); /* Slight scale on hover for interactivity */
+}
+
+.btn-success {
+    background: linear-gradient(45deg, #28a745, #1e7e34); /* Gradient green */
+    border: none; /* Remove border */
+    padding: 0.75rem 2rem; /* Larger padding for prominence */
+    border-radius: 8px; /* More rounded corners */
+    color: #ffffff; /* White text */
+    font-weight: 500; /* Semi-bold text */
+    text-transform: uppercase; /* Uppercase for emphasis */
+    letter-spacing: 1px; /* Slight letter spacing for modern look */
+    transition: background 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3); /* Subtle shadow */
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #1e7e34, #145523); /* Darker gradient on hover */
+    transform: scale(1.05); /* Slight scale on hover for interactivity */
+}
+
+/* Footer (Updated with gradient and animation) */
+.footer {
+    background: linear-gradient(135deg, #343a40, #212529); /* Dark gradient */
+    color: #ffffff; /* White text */
+    padding: 2rem 0; /* More padding for prominence */
+    text-align: center; /* Center-align text */
+    margin-top: 3rem; /* More space above footer */
+    animation: slideUp 1.5s ease-in-out; /* Slide-up animation */
+}
+
+.footer p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.8; /* Slight transparency for contrast */
+}
+
+/* Drag and Drop Area */
+.drag-drop-area {
+    border: 2px dashed #a2cffe; /* Light blue dashed border */
+    background-color: #e3f2fd; /* Light blue background */
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px; /* Match rounded corners from other elements */
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.1); /* Subtle shadow for depth */
+    margin-bottom: 1.5rem; /* Spacing below the area */
+}
+
+.drag-drop-area:hover {
+    border-color: #2196f3; /* Darker blue on hover */
+    background-color: #bbdefb; /* Slightly darker blue on hover */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.2); /* Enhanced shadow on hover */
+}
+
+.drag-drop-area.dragover {
+    background-color: #bbdefb; /* Highlight when dragging over */
+    border-color: #1976d2; /* Even darker blue for dragover */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.3); /* Larger shadow for emphasis */
+}
+
+.drag-drop-content {
+    padding: 20px; /* Inner padding for content */
+}
+
+.image-icon {
+    margin-bottom: 15px; /* Space below the icon */
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1)); /* Subtle shadow for the icon */
+}
+
+.drag-drop-area p.text-muted {
+    margin: 10px 0; /* Space around the drag-and-drop text */
+    font-size: 1rem; /* Readable size */
+    color: #666; /* Slightly darker muted text */
+}
+
+/* Preview Area */
+.preview-area {
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Adjust default icon and drag text visibility */
+#defaultIcon, #dragText {
+    transition: opacity 0.3s ease; /* Smooth fade for visibility changes */
+}
+
+#defaultIcon.hidden, #dragText.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* Compression Settings Panel */
+.compression-settings {
+    margin-bottom: 1.5rem;
+}
+
+.compression-header {
+    background-color: #a2cffe; /* Light blue header */
+    padding: 0.75rem 1rem;
+    border-radius: 8px 8px 0 0;
+    color: #ffffff; /* White text */
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2); /* Subtle shadow */
+}
+
+.compression-header:hover {
+    background-color: #2196f3; /* Darker blue on hover */
+}
+
+.collapse-icon {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+#compressionContent.show .collapse-icon {
+    transform: rotate(180deg); /* Rotate arrow when collapsed */
+}
+
+.compression-settings .card {
+    border: none; /* Remove default card border */
+    border-radius: 0 0 8px 8px; /* Match header rounding */
+}
+
+.compression-settings .form-check-label {
+    font-weight: 400;
+    margin-left: 0.5rem;
+}
+
+.info-icon {
+    font-size: 0.8rem;
+    color: #a2cffe; /* Light blue info icon */
+    cursor: help; /* Pointer for tooltip */
+}
+
+.info-icon:hover {
+    color: #2196f3; /* Darker blue on hover */
+}
+
+/* Quality Slider Container */
+.quality-slider-container {
+    margin-top: 1rem;
+    transition: opacity 0.3s ease; /* Smooth show/hide transition */
+}
+
+.quality-slider-container label {
+    font-weight: 400;
+    color: #ffffff; /* White text to match the dark card */
+}
+
+.form-range {
+    width: 100%;
+    background: transparent; /* Remove default background */
+}
+
+#qualityValue {
+    font-weight: 500;
+    color: #a2cffe; /* Light blue for contrast */
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem; /* Smaller heading on mobile */
+    }
+
+    .hero-section p {
+        font-size: 1.1rem; /* Smaller paragraph on mobile */
+    }
+
+    .upload-section {
+        padding: 2rem; /* Less padding on mobile */
+        margin: 1rem; /* Less margin on mobile */
+    }
+
+    .btn-primary, .btn-success {
+        padding: 0.5rem 1.5rem; /* Smaller buttons on mobile */
+    }
+
+    .drag-drop-area {
+        padding: 15px; /* Less padding on mobile */
+        border-radius: 10px; /* Slightly smaller corners on mobile */
+    }
+
+    .drag-drop-area p.text-muted {
+        font-size: 0.9rem; /* Smaller text on mobile */
+    }
+
+    .compression-header {
+        padding: 0.5rem 0.75rem; /* Smaller padding on mobile */
+    }
+
+    .compression-settings .card-body {
+        padding: 1rem; /* Less padding on mobile */
+    }
+
+    .quality-slider-container {
+        margin-top: 0.5rem; /* Less margin on mobile */
+    }
+
+    #qualityValue {
+        font-size: 0.9rem; /* Smaller text on mobile */
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+/* General Feedback Panel */
+.feedback-panel {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    margin: 2rem auto;
+    max-width: 800px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-panel h3 {
+    font-size: 2rem;
+    color: #007bff;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.feedback-panel .card {
+    border: none;
+    border-radius: 8px;
+}
+
+.feedback-panel .form-control {
+    border-radius: 5px;
+    border-color: #a2cffe;
+}
+
+.star {
+    font-size: 1.5rem;
+    color: #ccc;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: color 0.3s ease;
+}
+
+.star.selected {
+    color: #ffd700; /* Gold color for selected stars */
+}
+
+/* Responsive Design for General Feedback Panel */
+@media (max-width: 768px) {
+    .feedback-panel {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .feedback-panel h3 {
+        font-size: 1.5rem;
+    }
+
+    .star {
+        font-size: 1.2rem;
+    }
+}

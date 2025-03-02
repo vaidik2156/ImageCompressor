@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Image Compressor</title>
+    <!-- Bootstrap CSS (kept the latest version) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Google Fonts for Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .preview-img { max-width: 300px; height: auto; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Image Compressor</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-4">Compress Your Images Easily</h1>
+            <p class="lead">Upload your images and compress them to reduce file size without losing quality.</p>
+            <p class="lead">(This Website is currently under development,and we have currently deployed the Prototype,Hence it will require more time to be fully functional)</p>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <div class="container my-5">
+        <div class="upload-section">
+            <form action="/compress" method="post" enctype="multipart/form-data">
+                <div class="mb-3 drag-drop-area" id="dragDropArea">
+                    <div class="drag-drop-content">
+                        
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkt4s1L83okC9-HdI3-eKQ2krNwpfazQ5gnw&s" alt="Image Icon" class="image-icon" id="defaultIcon">
+                        <p class="text-muted" id="dragText">Drag and drop images here</p>
+                        <div id="previewArea" class="preview-area"></div>
+                    </div>
+                    <input type="file" class="d-none" id="files" name="files" multiple accept="image/*" required>
+                </div>
+                <div class="mb-3">
+                    <label for="quality" class="form-label">Compression Quality (0.1 - 1.0)</label>
+                    <input type="number" class="form-control" id="quality" name="quality" step="0.1" min="0.1" max="1.0" value="0.5" required>
+                </div>
+                <div class="mb-3">
+                    <label for="width" class="form-label">Width (in pixels)</label>
+                    <input type="number" class="form-control" id="width" name="width" min="1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="height" class="form-label">Height (in pixels)</label>
+                    <input type="number" class="form-control" id="height" name="height" min="1" required>
+                </div>
+                <div class="mb-3">
+                    <label for="format" class="form-label">Output Format</label>
+                    <select class="form-control" id="format" name="format" required>
+                        <option value="jpg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="gif">GIF</option>
+                        <option value="bmp">BMP</option>
+                        <option value="webp">WebP</option>
+                    </select>
+                </div>
+                <div class="mb-3 compression-settings" id="compressionSettings">
+                    <div class="compression-header" data-bs-toggle="collapse" data-bs-target="#compressionContent" aria-expanded="false" aria-controls="compressionContent">
+                        Compression Settings (optional) <span class="collapse-icon">▼</span>
+                    </div>
+                    <div class="collapse" id="compressionContent">
+                        <div class="card card-body bg-dark text-white p-3">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="maxSize" name="compressionType" value="maxSize" checked>
+                                <label class="form-check-label" for="maxSize">Max File Size (KB) <span class="info-icon" title="Set the maximum file size in KB for compression">ⓘ</span></label>
+                            </div>
+                            <div class="mb-3">
+                                <input type="number" class="form-control" id="maxFileSize" name="maxFileSize" placeholder="Enter Max File Size" min="1" step="1">
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="quality" name="compressionType" value="quality">
+                                <label class="form-check-label" for="quality">Quality <span class="info-icon" title="Set the compression quality (0.1 - 1.0)">ⓘ</span></label>
+                                <div class="mb-3 quality-slider-container" style="display: none;">
+                                    <label for="qualitySlider" class="form-label">Adjust Quality (0.1 - 1.0)</label>
+                                    <input type="range" class="form-range" id="qualitySlider" name="qualitySlider" min="0.1" max="1.0" step="0.01" value="0.5">
+                                    <span id="qualityValue" class="ms-2">0.50</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Compress Images</button>
+            </form>
+            
+            
+            
+            <div class="feedback-panel mt-4">
+                <h3>Provide Your Feedback</h3>
+                <div class="card bg-light p-3">
+                    <div class="mb-3">
+                        <label for="generalFeedbackEmail" class="form-label">Your Email (Optional)</label>
+                        <input type="email" class="form-control" id="generalFeedbackEmail" name="generalFeedbackEmail" placeholder="Enter your email (optional)">
+                    </div>
+                    <div class="star-rating" id="generalStarRating">
+                        <span class="star" data-value="1">★</span>
+                        <span class="star" data-value="2">★</span>
+                        <span class="star" data-value="3">★</span>
+                        <span class="star" data-value="4">★</span>
+                        <span class="star" data-value="5">★</span>
+                    </div>
+                    <input type="hidden" id="generalRating" name="generalRating" value="0">
+                    <div class="mb-3 mt-2">
+                        <label for="generalFeedbackDescription" class="form-label">Additional Comments (Optional)</label>
+                        <textarea class="form-control" id="generalFeedbackDescription" name="generalFeedbackDescription" rows="3" placeholder="Share your thoughts..."></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="submitGeneralFeedback()">Submit Feedback</button>
+                </div>
+            </div>
+
+            
+            
+            
+            <!-- Loading Spinner -->
+            <div id="loading" class="text-center mt-3" style="display: none;">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <!-- Success/Error Messages -->
+            <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+            <div th:if="${message}" class="alert alert-success mt-3" th:text="${message}"></div>
+
+            <!-- Comparison Table -->
+            <div th:if="${imageResponses != null and !imageResponses.isEmpty()}" class="mt-4">
+                <h3>Comparison</h3>
+                <div th:each="img, iterStat : ${imageResponses}">
+                    <h4 th:text="'Image ' + ${iterStat.count} + ': ' + ${img.fileName}"></h4>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Preview</th>
+                                <th>Size</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Original</td>
+                                <td><img th:src="'data:image/' + ${format} + ';base64,' + ${img.originalImageBase64}" class="preview-img" alt="Original Image"></td>
+                                <td th:text="${#numbers.formatDecimal(img.originalSize / 1024, 1, 2)} + ' KB'"></td>
+                            </tr>
+                            <tr>
+                                <td>Compressed</td>
+                                <td><img th:src="'data:image/' + ${format} + ';base64,' + ${img.compressedImageBase64}" class="preview-img" alt="Compressed Image"></td>
+                                <td th:text="${#numbers.formatDecimal(img.compressedSize / 1024, 1, 2)} + ' KB'"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a th:href="@{/download(imageId=${img.imageId}, fileName=${img.fileName}, format=${format})}" class="btn btn-success mb-3">Download Compressed Image</a>
+                    <div class="feedback-form mt-3" style="display: none;" id="feedbackForm_[[${img.id}]]">
+                        <h5>How was your experience?</h5>
+                        <div class="feedback-form mt-3" style="display: none;" id="feedbackForm_[[${img.id}]]">
+                            <h5>How was your experience?</h5>
+                            <div class="mb-3">
+                                <label for="feedbackEmail_[[${img.id}]]" class="form-label">Your Email (Optional)</label>
+                                <input type="email" class="form-control" id="feedbackEmail_[[${img.id}]]" name="feedbackEmail" placeholder="Enter your email (optional)">
+                            </div>
+                            <div class="star-rating" id="starRating_[[${img.id}]]">
+                                <span class="star" data-value="1">★</span>
+                                <span class="star" data-value="2">★</span>
+                                <span class="star" data-value="3">★</span>
+                                <span class="star" data-value="4">★</span>
+                                <span class="star" data-value="5">★</span>
+                            </div>
+                            <input type="hidden" id="rating_[[${img.id}]]" name="rating" value="0">
+                            <div class="mb-3 mt-2">
+                                <label for="feedbackDescription_[[${img.id}]]" class="form-label">Additional Comments (Optional)</label>
+                                <textarea class="form-control" id="feedbackDescription_[[${img.id}]]" name="feedbackDescription" rows="3" placeholder="Share your thoughts..."></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="submitFeedback('[[${img.id}]]')">Submit Feedback</button>
+                        </div>
+                </div>
+            </div>
+
+            <div th:if="${errors != null and !errors.isEmpty()}" class="mt-3">
+                <h3>Errors</h3>
+                <ul class="list-group">
+                    <li th:each="error : ${errors}" class="list-group-item list-group-item-danger" th:text="${error}"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 Image Compressor. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
+    <!-- Custom JS for loading spinner -->
+    <script>
+        document.querySelector("form").addEventListener("submit", function () {
+            document.getElementById("loading").style.display = "block";
+        });
+    </script>
+    <script>
+        // Get DOM elements
+        const dragDropArea = document.getElementById('dragDropArea');
+        const fileInput = document.getElementById('files');
+        const defaultIcon = document.getElementById('defaultIcon');
+        const dragText = document.getElementById('dragText');
+        const previewArea = document.getElementById('previewArea');
+    
+        // Handle click on drag area (optional, if you want to trigger file picker on click)
+        dragDropArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+    
+        // Handle file input change (for click or drop)
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+    
+        // Drag and drop events
+        dragDropArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragDropArea.classList.add('dragover');
+        });
+    
+        dragDropArea.addEventListener('dragleave', () => {
+            dragDropArea.classList.remove('dragover');
+        });
+    
+        dragDropArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragDropArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+    
+        // Handle files and show previews
+        function handleFiles(files) {
+            if (files.length > 0) {
+                previewArea.innerHTML = ''; // Clear previous previews
+                defaultIcon.style.display = 'none'; // Hide the default icon
+                dragText.style.display = 'none'; // Hide the drag text
+    
+                for (let file of files) {
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.className = 'preview-img mb-2';
+                            img.alt = file.name;
+                            previewArea.appendChild(img);
+    
+                            // Update the file input (required for form submission)
+                            fileInput.files = files;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                }
+            } else {
+                // If no files, reset to default
+                previewArea.innerHTML = '';
+                defaultIcon.style.display = 'block';
+                dragText.style.display = 'block';
+            }
+        }
+    
+        // Show loading spinner on form submit
+        document.querySelector("form").addEventListener("submit", function () {
+            document.getElementById("loading").style.display = "block";
+        });
+    </script>
+    <script>
+        // Handle radio button changes for compression settings
+        document.querySelectorAll('input[name="compressionType"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const qualitySliderContainer = document.getElementById('qualitySliderContainer');
+                const maxFileSizeInput = document.getElementById('maxFileSize');
+                
+                if (this.value === 'quality') {
+                    qualitySliderContainer.style.display = 'block';
+                    maxFileSizeInput.style.display = 'none';
+                } else if (this.value === 'maxSize') {
+                    qualitySliderContainer.style.display = 'none';
+                    maxFileSizeInput.style.display = 'block';
+                }
+            });
+        });
+    
+        // Update quality value display as the slider changes
+        const qualitySlider = document.getElementById('qualitySlider');
+        const qualityValue = document.getElementById('qualityValue');
+        
+        qualitySlider.addEventListener('input', function() {
+            qualityValue.textContent = this.value.toFixed(2);
+            // Optionally, update the quality input in the form (hidden or not)
+            document.getElementById('quality').value = this.value; // Sync with the existing quality input
+        });
+    
+        // Initialize the slider visibility based on default (quality is checked)
+        document.addEventListener('DOMContentLoaded', function() {
+            const qualityRadio = document.getElementById('quality');
+            if (qualityRadio.checked) {
+                document.getElementById('qualitySliderContainer').style.display = 'block';
+                document.getElementById('maxFileSize').style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        // Star rating functionality for general feedback
+        document.getElementById('generalStarRating').addEventListener('click', function(e) {
+            const star = e.target;
+            if (star.classList.contains('star')) {
+                const value = star.getAttribute('data-value');
+                const stars = this.querySelectorAll('.star');
+                stars.forEach(s => s.classList.remove('selected'));
+                for (let i = 0; i < value; i++) {
+                    stars[i].classList.add('selected');
+                }
+                document.getElementById('generalRating').value = value;
+            }
+        });
+    
+        // Submit general feedback via AJAX with improved error handling
+        function submitGeneralFeedback() {
+            const rating = document.getElementById('generalRating').value;
+            const description = document.getElementById('generalFeedbackDescription').value || '';
+            const userEmail = document.getElementById('generalFeedbackEmail').value || 'vaidik627@gmail.com'; // Fallback to your email
+    
+            if (rating === '0') {
+                alert('Please select a rating before submitting.');
+                return;
+            }
+    
+            // Validate email only if provided (not the fallback email)
+            if (userEmail !== 'vaidik627@gmail.com' && userEmail.trim() !== '') {
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(userEmail)) {
+                    alert('Please enter a valid email address');
+                    return;
+                }
+            }
+    
+            fetch('/api/general-feedback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                credentials: 'same-origin', // Ensure cookies/credentials are included if needed
+                body: JSON.stringify({
+                    rating: rating,
+                    description: description,
+                    email: userEmail // Use user-provided email or fallback to your email
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert('Feedback submitted successfully!');
+                document.getElementById('generalFeedbackEmail').value = '';
+                document.getElementById('generalFeedbackDescription').value = '';
+                document.getElementById('generalRating').value = '0';
+                const stars = document.getElementById('generalStarRating').querySelectorAll('.star');
+                stars.forEach(s => s.classList.remove('selected'));
+            })
+            .catch(error => {
+                console.error('Error submitting general feedback:', error);
+                alert('Error submitting feedback: ' + (error.message || 'Network or server error. Please try again.'));
+            });
+        }
+    
+        // Client-side validation for feedback email (validate on blur, not input, for better UX)
+        document.getElementById('generalFeedbackEmail').addEventListener('blur', function() {
+            const email = this.value.trim();
+            if (email) { // Only validate if email is provided
+                const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                if (!emailRegex.test(email)) {
+                    alert('Please enter a valid email address');
+                    this.value = ''; // Clear invalid email
+                }
+            }
+        });
+    </script>
+</body>
+</html>
